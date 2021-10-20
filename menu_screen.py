@@ -36,7 +36,7 @@ class Button2(Button):
         super().__init__(x, y, img, img2)
         self.moveType = (1 if moveType == "Forward" else 0)
         self.page = 1  # Used to count pages, starts at 1
-        self.max = (4 if self.moveType else 1)
+        self.max = (5 if self.moveType else 1)
 
     def button_blit(self, screen, mouse_pos):
         if self.moveType:
@@ -68,19 +68,28 @@ class ButtonLevel(Button):
 
 
 class PageCheck:
-    def __init__(self):
+    def __init__(self, block_img1, block_img2, block_img3, player_img, player_shield_img):
+        self.player_img = player_img
+        self.img1 = block_img1
+        self.img2 = block_img2
+        self.img3 = block_img3
+        self.shield_img = player_shield_img
         pass
     def render_text_1(self, screen, x, y):
-        temp = font.render("Use W, S, A, D to move up, down, left, right.", True, (0, 0, 0))
+        temp = font.render("Press F to move up or down. Press D to shoot", True, (0, 0, 0))
         screen.blit(temp, (x, y))
+        screen.blit(self.player_img, (483, 284))
 
     def render_text_2(self, screen, x, y):
-        temp = font.render("Turrets will shoot bullets.", True, (0, 0, 0))
-        temp2 = font.render("If you get hit by a bullet, your health is decrease by 1.", True, (0, 0, 0))
-        temp3 = font.render("You start with 3 health. If your health reaches 0, you die.", True, (0, 0, 0))
+        temp = font.render("There are 3 types of block:", True, (0, 0, 0))
+        temp2 = font.render("Breakable block, Unbreakable block, Shield Block,", True, (0, 0, 0))
+        temp3 = font.render("each will randomly spawn.", True, (0, 0, 0))
         screen.blit(temp, (x, y))
         screen.blit(temp2, (x, y+40))
         screen.blit(temp3, (x, y+80))
+        screen.blit(self.img1, (300, 264))
+        screen.blit(self.img2, (500, 264))
+        screen.blit(self.img3, (700, 275))
 
     def render_text_0(self, screen, x, y):
         temp = font.render("Each Levels has a number of phases.", True, (0, 0, 0))
@@ -93,17 +102,27 @@ class PageCheck:
         screen.blit(temp4, (x, y + 120))
 
     def render_text_3(self, screen, x, y):
-        temp = font.render("To reach the next phase, you must get to", True, (0, 0, 0))
-        temp2 = font.render("the red button placed at somewhere in the Levels.", True, (0, 0, 0))
-        temp3 = font.render("Once you reach the final phase, the button becomes purples.", True, (0, 0, 0))
-        temp4 = font.render("Remember that reaching the next phase will NOT reset your health.", True, (0, 0, 0))
+        temp = font.render("Shoot a block to destroy it.", True, (0, 0, 0))
+        temp2 = font.render("Unbreakable blocks are indestructible.", True, (0, 0, 0))
+        temp3 = font.render("You will lose if you touch a block,", True, (0, 0, 0))
+        temp4 = font.render("but Shield block is an exception.", True, (0, 0, 0))
         screen.blit(temp, (x, y))
         screen.blit(temp2, (x, y + 40))
         screen.blit(temp3, (x, y + 80))
         screen.blit(temp4, (x, y + 120))
+        screen.blit(self.img3, (483, 284))
 
     def render_text_4(self, screen, x, y):
-        temp = font.render("Please enjoy!", True, (255, 80, 0))
+        temp = font.render("Destroy a Breakable block increases your score.", True, (0, 0, 0))
+        temp2 = font.render("Destroy a Shield block increases you shield count.", True, (0, 0, 0))
+        temp3 = font.render("The more shields you have, the more lives you get.", True, (0, 0, 0))
+        screen.blit(temp, (x, y))
+        screen.blit(temp2, (x, y+40))
+        screen.blit(temp3, (x, y+80))
+        screen.blit(self.shield_img, (483, 284))
+
+    def render_text_5(self, screen, x, y):
+        temp = font.render("Enjoy!", True, (0, 0, 0))
         screen.blit(temp, (x, y))
 
 # Functions
@@ -186,11 +205,15 @@ player_orb = pygame.image.load("Textures/Objects/player_orb.png")
 button_back = pygame.image.load("Textures/Graphics/button_back.png")
 button_forward = pygame.image.load("Textures/Graphics/button_forward.png")
 button_backward = pygame.image.load("Textures/Graphics/button_backward.png")
+breakable_block = pygame.image.load("Textures/Objects/block_breakable.png")
+unbreakable_block = pygame.image.load("Textures/Objects/block_unbreakable.png")
+shield_block = pygame.image.load("Textures/Objects/block_shield.png")
+player_shield = pygame.image.load("Textures/Objects/shield_orb.png")
 # Instantiate How-to-play Objects
 back_button = Button(15, 15, button_back, button_back)
 forward_button = Button2(953, 284, button_forward, button_forward, "Forward")
 backward_button = Button2(15, 284, button_backward, button_backward, "Backward")
-page_check = PageCheck()
+page_check = PageCheck(breakable_block, unbreakable_block, shield_block, player_orb, player_shield)
 
 
 def howtoplay_main():
@@ -225,7 +248,6 @@ def howtoplay_main():
         back_button.button_blit(MENU_SCREEN, pos)
         forward_button.button_blit(MENU_SCREEN, pos)
         backward_button.button_blit(MENU_SCREEN, pos)
-        MENU_SCREEN.blit(player_orb, (483, 284))
         # Render Texts
         enjoy = (430 if backward_button.page == 5 else 253)
         getattr(page_check, "render_text_" + str(backward_button.page), "")(MENU_SCREEN, enjoy, 336)
