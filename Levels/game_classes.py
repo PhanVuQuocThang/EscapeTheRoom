@@ -204,6 +204,7 @@ class GameFunction():
         if global_var.multiplier_counter <= 5:
             if player.score == player.score_knot:
                 player.vel = int(player.vel * global_var.player_vel_multiplier)
+                player.bullet_vel = int(player.vel * global_var.player_vel_multiplier)
                 breakable_block.block_vel = int(breakable_block.block_vel * global_var.block_vel_multiplier)
                 unbreakable_block.block_vel = int(unbreakable_block.block_vel * global_var.block_vel_multiplier)
                 powerup.vel = int(powerup.vel * global_var.block_vel_multiplier)
@@ -212,6 +213,7 @@ class GameFunction():
                 unbreakable_block.block_distance = int(
                     unbreakable_block.block_distance * global_var.block_distance_multiplier)
                 player.score_knot = int(player.score_knot * global_var.score_multiplier)
+                global_var.multiplier_counter += 1
                 return True
 
     def block_overlap(self, block_breakable_obj, block_unbreakable_obj):

@@ -12,3 +12,9 @@ block_distance = 80
 block_distance2 = 170
 block_vel = -5
 score = 15
+bullet_vel = 12
+
+for i in range(6):
+    bullet_vel = int(bullet_vel * var.player_vel_multiplier)
+    player_vel = int(player_vel * var.player_vel_multiplier)
+    print(bullet_vel, player_vel)
