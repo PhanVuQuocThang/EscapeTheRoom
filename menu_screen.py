@@ -195,6 +195,10 @@ def intro_main():
                 if exit_button.isAbove(pos):  # Quit
                     isOn = False
                     QUIT = True
+                if info_button.isAbove(pos):
+                    show_info()
+                    if QUIT:
+                        isOn = False
 
         pygame.display.update()
         clock.tick(FPS)
@@ -315,6 +319,10 @@ def lvl_list():
 
         pygame.display.update()
         clock.tick(FPS)
+
+
+def show_info():
+    return 0
 
 
 def main():     # Main game loop

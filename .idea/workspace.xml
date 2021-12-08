@@ -50,7 +50,7 @@
       <recent name="D:\AABeta\EscapeTheRoom\Levels" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test">
+  <component name="RunManager" selected="Python.game (1)">
     <configuration name="Test1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="AABetaGame" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -221,8 +221,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test" />
         <item itemvalue="Python.game (1)" />
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.Test1" />
         <item itemvalue="Python.game_classes (1)" />
         <item itemvalue="Python.game_classes" />
