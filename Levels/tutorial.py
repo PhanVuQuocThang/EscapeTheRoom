@@ -179,6 +179,9 @@ lvl_button_continue = pygame.image.load(os.path.join("Textures/Graphics", "lvl_b
 lvl_button_exit = pygame.image.load(os.path.join("Textures/Graphics", "lvl_button_exit.png"))
 lvl_button_replay = pygame.image.load(os.path.join("Textures/Graphics", "lvl_button_replay.png"))
 def ecs_screen():
+    """Small note: the img 'blit' mechanism used here is different from
+    the one used in 'endless'. However, they work almost the same and
+    serve the same purpose."""
     global QUIT
     FPS = 60
     fpsClock = pygame.time.Clock()
@@ -186,6 +189,12 @@ def ecs_screen():
     button_continue = game_mini_screen.ContinueButton(383, 258, lvl_button_continue, lvl_button_continue)
     button_exit = game_mini_screen.ExitButton(561, 258, lvl_button_exit, lvl_button_exit)
     isOn = True
+    # This part is different in 'endless'
+    SCREEN.blit(esc_background, (200, 100))
+    button_continue.simple_button_blit(SCREEN)
+    button_exit.simple_button_blit(SCREEN)
+    pygame.display.update()
+    #
     while isOn:
         event_list = pygame.event.get()
         mouse_pos = pygame.mouse.get_pos()
@@ -201,13 +210,10 @@ def ecs_screen():
                     return False
                 if button_exit.click_exit(mouse_pos):  # Quit
                     return True
-        SCREEN.blit(esc_background, (200, 100))
 
-        button_continue.button_blit(SCREEN, mouse_pos)
-        button_exit.button_blit(SCREEN, mouse_pos)
-
-        pygame.display.update()
         fpsClock.tick(FPS)
+
+
 def game_complete_screen(game_state="lose"):
     global QUIT
     FPS = 60

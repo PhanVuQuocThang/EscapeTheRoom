@@ -321,8 +321,45 @@ def lvl_list():
         clock.tick(FPS)
 
 
+# Load show_info images
+info_bg = pygame.image.load("Textures/Backgrounds/info.png")
+# Instantiate show_info objects
+back_button2 = Button(215, 115, button_back, button_back)
+
+
 def show_info():
-    return 0
+    FPS = 60
+    clock = pygame.time.Clock()
+    isOn = True
+    global QUIT
+    QUIT = False
+    new_font = pygame.font.SysFont("Calibri", 20)
+
+    with open("log.txt", "r") as version:
+        ver_display = version.readline()
+    ver_display = ver_display[0:-1]
+    ver_display = ver_display[7:]
+    print(ver_display)
+    ver_display2 = new_font.render(ver_display, True, (0, 0, 0))
+    print(ver_display2)
+
+    while isOn:
+        # if count < 10:  count +=1
+        # else: isOn = False
+        event_list = pygame.event.get()
+        pos = pygame.mouse.get_pos()
+        MENU_SCREEN.blit(info_bg, (200, 100))
+        MENU_SCREEN.blit(ver_display2, (215, 470))
+        back_button2.button_blit(MENU_SCREEN, pos)
+        for ev in event_list:  # Events check
+            if ev.type == pygame.QUIT:
+                isOn = False
+                QUIT = True
+            if ev.type == pygame.MOUSEBUTTONDOWN:  # Check click
+                if back_button2.isAbove(pos):  # Play
+                    isOn = False
+        pygame.display.update()
+        clock.tick(FPS)
 
 
 def main():     # Main game loop

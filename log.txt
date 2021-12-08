@@ -1,0 +1,6 @@
+Newest Version: 1.1.0
+
+1.1.0:
+Added functionality to info button
+Minor changes in tutorial.py'
+Version display is now read from this file
