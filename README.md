@@ -1,2 +1,2 @@
-# EscapeTheRoom
- First project I've ever made. The official name is Space Travel.
+# Space Game
+ First project I've ever made.
